@@ -2,12 +2,12 @@ package UML_Project;
 
 public class ButtonState {
     private Canvas canvas ;
-    private BasicMode[] mode ;
-    private BasicMode curMode ;
+    private BasicObject[] mode ;
+    private BasicObject curMode ;
 
     ButtonState(Canvas canvas){
         this.canvas = canvas;
-        mode = new BasicMode[]{new PaintSelct(canvas),
+        mode = new BasicObject[]{new PaintSelct(canvas),
                 new PaintSelct(canvas),
                 new PaintSelct(canvas),
                 new PaintSelct(canvas),
@@ -19,7 +19,7 @@ public class ButtonState {
     public void setMode(int id){
         curMode = mode[id];
     }
-    public BasicMode getMode(){
+    public BasicObject getMode(){
         return curMode;
     }
 }
