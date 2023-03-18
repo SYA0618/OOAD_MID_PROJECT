@@ -28,28 +28,34 @@ class Select extends BasicObject  {
     private Component select;
     @Override
     void press(MouseEvent e) {
-        for(int i = canvas.getComponents().length-1; i >= 0; i--){
-            int offset_X = canvas.getComponent(i).getX();
-            int offset_Y = canvas.getComponent(i).getY();
-            mousePt = e.getPoint();
-            boolean result = canvas.getComponent(i).contains(e.getX()-offset_X,e.getY()-offset_Y);
-            if (result) {
-                select = canvas.getComponent(i);
-                canvas.getComponent(i);
-                break;
 
+            for (int i = canvas.getComponents().length - 1; i >= 0; i--) {
+                int offset_X = canvas.getComponent(i).getX();
+                int offset_Y = canvas.getComponent(i).getY();
+                mousePt = e.getPoint();
+                boolean result = canvas.getComponent(i).contains(e.getX() - offset_X, e.getY() - offset_Y);
+                if (result) {
+                    select = canvas.getComponent(i);
+                    canvas.getComponent(i);
+                    canvas.remove(canvas.getComponent(i));
+                    canvas.add(select);
+                    break;
+                }else{
+                    select = null;
+                }
             }
-
         }
-    }
+
+
 
     void drag(MouseEvent e){
-            int dx = e.getX()-mousePt.x ;
-            int dy = e.getY()-mousePt.y ;
-            select.setLocation(select.getX()+dx, select.getY()+dy);
+        if(select!=null) {
+            int dx = e.getX() - mousePt.x;
+            int dy = e.getY() - mousePt.y;
+            select.setLocation(select.getX() + dx, select.getY() + dy);
             select.repaint();
             mousePt = e.getPoint();
-
+        }
 
 
         }
