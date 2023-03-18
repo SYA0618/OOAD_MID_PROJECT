@@ -1,30 +1,28 @@
 package UML_Project;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
+import java.awt.event.MouseMotionListener;
 
-public class Canvas extends JPanel implements MouseListener {
+public class Canvas extends JPanel implements MouseListener,MouseMotionListener {
     ButtonState state;
 
     Canvas(){
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
     }
 
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        state.getMode().paint(e);
+
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        state.getMode().press(e);
     }
 
     @Override
@@ -39,6 +37,16 @@ public class Canvas extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        state.getMode().drag(e);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }

@@ -7,14 +7,14 @@ public class ButtonState {
 
     ButtonState(Canvas canvas){
         this.canvas = canvas;
-        mode = new BasicObject[]{new PaintSelct(canvas),
-                new PaintSelct(canvas),
-                new PaintSelct(canvas),
-                new PaintSelct(canvas),
+        mode = new BasicObject[]{new Select(canvas),
+                new Select(canvas),
+                new Select(canvas),
+                new Select(canvas),
                 new Paint_My_Class(canvas),
                 new Paint_Use_Case(canvas)} ;
         curMode = mode[0];
-        canvas.state=this;
+        canvas.state = this;
     }
     public void setMode(int id){
         curMode = mode[id];
