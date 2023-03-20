@@ -6,7 +6,7 @@ public class ButtonState {
     private BasicObject curMode ;
 
     ButtonState(Canvas canvas){
-        this.canvas = canvas;
+        //this.canvas = canvas;
         mode = new BasicObject[]{new Select(canvas),
                 new Select(canvas),
                 new Select(canvas),
