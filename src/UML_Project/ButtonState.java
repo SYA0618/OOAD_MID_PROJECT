@@ -1,12 +1,10 @@
 package UML_Project;
 
 public class ButtonState {
-    private Canvas canvas ;
-    private BasicObject[] mode ;
+    private final BasicObject[] mode ;
     private BasicObject curMode ;
 
     ButtonState(Canvas canvas){
-        //this.canvas = canvas;
         mode = new BasicObject[]{new Select(canvas),
                 new Select(canvas),
                 new Select(canvas),

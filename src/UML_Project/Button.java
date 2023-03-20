@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 abstract class IconButton extends JToggleButton {
     private final int id;
     private ButtonState state;
+    private Canvas canvas;
 
-
-    IconButton(String iconPath, String tipText, int id, ButtonState state) {
+    IconButton(String iconPath, String tipText, int id, ButtonState state,Canvas canvas) {
         ImageIcon icon = new ImageIcon(iconPath);
         this.setSize(80, 80);
         Image temp1 = icon.getImage().getScaledInstance(this.getWidth(), this.getHeight(), icon.getImage().SCALE_DEFAULT);//根據Button Size調整
@@ -22,51 +22,59 @@ abstract class IconButton extends JToggleButton {
         this.addActionListener(listener);
         this.id = id;
         this.state = state;
+        this.canvas = canvas;
+
     }
     ActionListener listener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             state.setMode(id);
+            for(int i = 0; i < canvas.getComponents().length; i++){
+                ((GraphCanvas) canvas.getComponent(i)).isSelected = false;
+                canvas.repaint();
+            }
         }
     };
 
 }
 
 class SelectButton extends IconButton {
-    SelectButton(String path, String tip, int id, ButtonState state) {
-        super(path, tip, id, state);
+    SelectButton(String path, String tip, int id, ButtonState state, Canvas canvas) {
+        super(path, tip, id, state, canvas);
     }
 
 
 }
 
 class AssociationButton extends IconButton {
-    AssociationButton(String path, String tip, int id, ButtonState state) {
-        super(path, tip, id, state);
+    AssociationButton(String path, String tip, int id, ButtonState state, Canvas canvas) {
+        super(path, tip, id, state, canvas);
     }
 }
 
 class Generalization extends IconButton {
-    Generalization(String path, String tip, int id, ButtonState state) {
-        super(path, tip, id, state);
+    Generalization(String path, String tip, int id, ButtonState state, Canvas canvas) {
+        super(path, tip, id, state, canvas);
     }
 
 }
 
 class Composition extends IconButton {
-    Composition(String path, String tip, int id, ButtonState state) {
-        super(path, tip, id, state);
+    Composition(String path, String tip, int id, ButtonState state, Canvas canvas) {
+        super(path, tip, id, state, canvas);
     }
 }
 
 class my_Class extends IconButton {
-    my_Class(String path, String tip, int id, ButtonState state) {
-        super(path, tip, id, state);
+    my_Class(String path, String tip, int id, ButtonState state, Canvas canvas) {
+        super(path, tip, id, state, canvas);
     }
+
+
 }
 
 class use_Case extends IconButton {
-    use_Case(String path, String tip, int id, ButtonState state) {
-        super(path, tip, id, state);
+    use_Case(String path, String tip, int id, ButtonState state, Canvas canvas) {
+        super(path, tip, id, state, canvas);
     }
 }

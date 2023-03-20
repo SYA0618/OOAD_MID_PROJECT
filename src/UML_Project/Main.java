@@ -47,12 +47,12 @@ public class Main {
         /*實作左半邊*/
         panelofButton.setLayout(new GridLayout(6,0));
         IconButton[] btn = {
-                new SelectButton("src/resource/select.png", "select", 0, state),
-                new AssociationButton("src/resource/association_line.png", "association line", 1, state),
-                new Generalization("src/resource/generalization_line.png", "generalization line", 2, state),
-                new Composition("src/resource/composition_line.png", "composition line", 3, state),
-                new my_Class("src/resource/class.png", "class", 4, state),
-                new use_Case("src/resource/use_case.png", "use case", 5, state)
+                new SelectButton("src/resource/select.png", "select", 0, state, panelofCanvas),
+                new AssociationButton("src/resource/association_line.png", "association line", 1, state, panelofCanvas),
+                new Generalization("src/resource/generalization_line.png", "generalization line", 2, state, panelofCanvas),
+                new Composition("src/resource/composition_line.png", "composition line", 3, state, panelofCanvas),
+                new my_Class("src/resource/class.png", "class", 4, state, panelofCanvas),
+                new use_Case("src/resource/use_case.png", "use case", 5, state, panelofCanvas)
         };
         ButtonGroup bg = new ButtonGroup();
         for(int i = 0; i < 6; i++) {
