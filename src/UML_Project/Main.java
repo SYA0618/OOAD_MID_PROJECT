@@ -15,8 +15,8 @@ import java.util.Enumeration;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Canvas panelofCanvas = null;
-        JPanel panelofButton = null;
+        Canvas panelofCanvas = new Canvas();
+        JPanel panelofButton = new JPanel();
         /*框架 設定*/
         JFrame frame = new JFrame("UML editor");
         frame.setAlwaysOnTop(false);
@@ -31,18 +31,14 @@ public class Main {
 
         /*Menu 設定*/
         JMenuBar bar = new JMenuBar();
-        JMenu file = new JMenu("File");
-        file.add(new JMenuItem("No.1"));
-        bar.add(file);
-        JMenu edit = new JMenu("Edit");
-        edit.add(new JMenuItem("No.1"));
-        bar.add(edit);
+        FileMenu fileMenu = new FileMenu();
+        EditMenu editMenu = new EditMenu(panelofCanvas);
+        bar.add(fileMenu);
+        bar.add(editMenu);
         frame.setJMenuBar(bar);
         /*分割面板*/
         JSplitPane pane = new JSplitPane();
         pane.setEnabled(false);
-        panelofButton = new JPanel();
-        panelofCanvas = new Canvas();
         ButtonState state = new ButtonState(panelofCanvas);
         /*實作左半邊*/
         panelofButton.setLayout(new GridLayout(6,0));
