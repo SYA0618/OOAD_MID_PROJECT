@@ -17,8 +17,5 @@ public class ConnectionPort extends JPanel {
         int height = 10;
         int width = 10;
         g.fillRect(x,y, width, height);
-//        Graphics2D graphics2 = (Graphics2D) g;
-//        Rectangle r = new Rectangle(x,y,width,height);
-//        graphics2.fillRect(r.x, r.y, width, height);
     }
 }

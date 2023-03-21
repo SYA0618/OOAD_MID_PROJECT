@@ -1,5 +1,8 @@
 package UML_Project;
 
-public class SelectObject {
+import javax.swing.*;
+import java.awt.*;
+
+public class SelectObject extends JPanel {
 
 }

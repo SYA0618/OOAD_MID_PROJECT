@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public abstract class BasicObject {
-    ConnectionPort port_n = new ConnectionPort(45, 0);
 
     protected Canvas canvas;
     void CreateObject(Canvas canvas, MouseEvent e, GraphCanvas drawArea){
@@ -16,37 +15,52 @@ public abstract class BasicObject {
     }
     abstract public void press(MouseEvent e);
     abstract public void drag(MouseEvent e);
+    abstract public void release(MouseEvent e);
 }
 
 class Select extends BasicObject{
     private Point mousePt;
     private Component select;
+    public Canvas selectObject;
     Select(Canvas canvas){
         this.canvas = canvas;
     }
     public void press(MouseEvent e){
+        mousePt = e.getPoint();
         select = null;
-        for(int i = 0; i < canvas.getComponents().length; i++){
-            int offset_X = canvas.getComponent(i).getX();
-            int offset_Y = canvas.getComponent(i).getY();
-            mousePt = e.getPoint();
-            boolean result = canvas.getComponent(i).contains(e.getX() - offset_X, e.getY() - offset_Y);
+        for(Component component:canvas.getComponents()){
+            int offset_X = component.getX();
+            int offset_Y = component.getY();
+            boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
             if (select == null && result) {
-                select = canvas.getComponent(i);
-                canvas.remove(canvas.getComponent(i));
+                select = component;
+                canvas.remove(component);
                 canvas.add(select, 0);
                 ((GraphCanvas) select).isSelected=true;
-                ((GraphCanvas) select).repaint();
-                canvas.repaint();
-
             }else{
-                GraphCanvas s = (GraphCanvas) canvas.getComponent(i);
+                GraphCanvas s = (GraphCanvas) component;
                 s.isSelected=false;
-                s.repaint();
-                canvas.repaint();
             }
-
         }
+//        for(int i = 0; i < canvas.getComponents().length; i++){
+//            int offset_X = canvas.getComponent(i).getX();
+//            int offset_Y = canvas.getComponent(i).getY();
+//            boolean result = canvas.getComponent(i).contains(e.getX() - offset_X, e.getY() - offset_Y);
+//            if (select == null && result) {
+//                select = canvas.getComponent(i);
+//                canvas.remove(canvas.getComponent(i));
+//                canvas.add(select, 0);
+//                ((GraphCanvas) select).isSelected=true;
+//            }else{
+//                GraphCanvas s = (GraphCanvas) canvas.getComponent(i);
+//                s.isSelected=false;
+//            }
+//
+//        }
+        if (select == null){
+            selectObject = new Canvas();
+        }
+        canvas.repaint();
     }
     public void drag(MouseEvent e){
         if(select!=null) {
@@ -56,7 +70,25 @@ class Select extends BasicObject{
             select.repaint();
             mousePt = e.getPoint();
             select.repaint();
+        }else{
+            selectObject.setBounds(Math.min(mousePt.x,e.getX()),Math.min(mousePt.y,e.getY()),Math.abs(mousePt.x-e.getX()),Math.abs(mousePt.y-e.getY()));
+            selectObject.setBorder(BorderFactory.createLineBorder(Color.BLUE, 0));
+            selectObject.setBackground(new Color(13,191,140,40));
+            canvas.add(selectObject, 0);
         }
+        canvas.repaint();
+    }
+    public void release(MouseEvent e){
+        if(selectObject!=null) {
+        for(Component component:canvas.getComponents()){
+            if(component.getX()>Math.min(mousePt.x,e.getX())&&component.getY()>Math.min(mousePt.y,e.getY())&&component.getX()<Math.max(mousePt.x,e.getX())&&component.getY()<Math.max(mousePt.y,e.getY())){
+                ((GraphCanvas) component).isSelected=true;
+            }
+        }
+            canvas.remove(selectObject);
+
+        }
+        canvas.repaint();
     }
 }
 class Paint_My_Class extends BasicObject{
@@ -68,6 +100,7 @@ class Paint_My_Class extends BasicObject{
         CreateObject(this.canvas, e, drawRectArea);
     }
     public void drag(MouseEvent e){}
+    public void release(MouseEvent e){}
 }
 class Paint_Use_Case extends BasicObject{
     Paint_Use_Case(Canvas canvas){
@@ -78,4 +111,5 @@ class Paint_Use_Case extends BasicObject{
         CreateObject(this.canvas, e, drawOvalArea);
     }
     public void drag(MouseEvent e){}
+    public void release(MouseEvent e){}
 }

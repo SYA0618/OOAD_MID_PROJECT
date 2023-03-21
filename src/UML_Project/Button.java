@@ -29,8 +29,8 @@ abstract class IconButton extends JToggleButton {
         @Override
         public void actionPerformed(ActionEvent e) {
             state.setMode(id);
-            for(int i = 0; i < canvas.getComponents().length; i++){
-                ((GraphCanvas) canvas.getComponent(i)).isSelected = false;
+            for(Component component:canvas.getComponents()){
+                ((GraphCanvas) component).isSelected = false;
                 canvas.repaint();
             }
         }
