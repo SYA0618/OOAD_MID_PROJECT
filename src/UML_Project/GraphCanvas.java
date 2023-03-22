@@ -44,3 +44,7 @@ class OvalCanvas extends GraphCanvas{
         g.drawOval(0, 0, width, height);
     }
 }
+
+class GroupCanvas extends GraphCanvas{
+
+}
