@@ -2,22 +2,34 @@ package UML_Project;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class GroupObject extends JPanel {
     JMenuItem group;
     Canvas canvas;
+
+    Component select = null;
+
     GroupObject(JMenuItem group, Canvas canvas){
         this.canvas = canvas;
         this.group = group;
 
     }
-    ArrayList<Component> groupList = new ArrayList<Component>();
+    ArrayList<Component> groupList;
     protected GroupCanvas groupPanel;
-
-    int maxHeight(){
+    boolean checkSum(){
+        int count = 0;
+        for(Component component : canvas.getComponents()){
+            if(((GraphCanvas) component).isSelected){count++;}
+        }
+        if(count > 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    int maxY(){
         int max_Y = 0;
         for(Component component:groupList){
             if(component.getY() > max_Y){
@@ -26,7 +38,7 @@ public class GroupObject extends JPanel {
         }
         return max_Y;
     }
-    int minHeight(){
+    int minY(){
         int min_Y = 1000;
         for(Component component:groupList){
             if(component.getY() < min_Y){
@@ -36,7 +48,7 @@ public class GroupObject extends JPanel {
         return min_Y;
     }
 
-    int maxWidth(){
+    int maxX(){
         int max_X = 0;
         for(Component component:groupList){
             if(component.getX() > max_X){
@@ -45,7 +57,7 @@ public class GroupObject extends JPanel {
         }
         return max_X;
     }
-    int minWidth(){
+    int minX(){
         int min_X = 1000;
         for(Component component:groupList){
             if(component.getX() < min_X){
@@ -58,35 +70,22 @@ public class GroupObject extends JPanel {
         group.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(canvas.getComponentCount() <1) return;
+                if(!checkSum()||canvas.getComponentCount() <1) return;
+                groupPanel = new GroupCanvas();
+                groupList = new ArrayList<Component>();
                 for (Component component : canvas.getComponents()){
-                    groupPanel = new GroupCanvas();
+
                     if(((GraphCanvas) component).isSelected){
                         groupList.add(component);
+                    }else{
+                        continue;
                     }
                 }
-                groupPanel.setBounds(minWidth(), minHeight(), maxWidth() - minWidth() + groupList.get(0).getWidth(), maxHeight() - minHeight() + groupList.get(0).getHeight());
+                groupPanel.setBounds(minX(), minY(), maxX() - minX() + 110, maxY() - minY() + 90);
                 groupPanel.setBackground(new Color(13, 191, 140, 40));
-                canvas.add(groupPanel);
+                canvas.add(groupPanel,0);
                 canvas.repaint();
                 System.out.println(groupList);
-//
-//                if (canvas.getComponentCount() < 1) return;
-//                    groupPanel = new GroupCanvas();
-//                    for (Component component : canvas.getComponents()) {
-//                        if (((GraphCanvas) component).isSelected) {
-//                            ((GraphCanvas) component).isSelected = false;
-//                            canvas.repaint();
-//                            groupPanel.add(component);
-//                            canvas.remove(component);
-//                        }
-//                    }
-//                    groupPanel.setBounds(minWidth(), minHeight(), maxWidth() - minWidth() + groupPanel.getComponent(0).getWidth(), maxHeight() - minHeight() + groupPanel.getComponent(0).getHeight());
-//                    groupPanel.setBackground(new Color(13, 191, 140, 40));
-//
-//                    canvas.add(groupPanel);
-//                    canvas.repaint();
-
             }
         });
     }

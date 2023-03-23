@@ -8,7 +8,7 @@ public abstract class BasicObject {
 
     protected Canvas canvas;
     void CreateObject(Canvas canvas, MouseEvent e, GraphCanvas drawArea){
-        drawArea.setBounds(e.getX()-50,e.getY()-40,drawArea.width+1,drawArea.height+1);
+        drawArea.setBounds(e.getX()-50,e.getY()-40,drawArea.width+10,drawArea.height+10);
         drawArea.repaint();
         canvas.add(drawArea,0);
         canvas.repaint();
@@ -52,9 +52,8 @@ class Select extends BasicObject{
             int dx = e.getX() - mousePt.x;
             int dy = e.getY() - mousePt.y;
             select.setLocation(select.getX() + dx, select.getY() + dy);
-            select.repaint();
+
             mousePt = e.getPoint();
-            select.repaint();
         }else{
             selectObject.setBounds(Math.min(mousePt.x,e.getX()),Math.min(mousePt.y,e.getY()),Math.abs(mousePt.x-e.getX()),Math.abs(mousePt.y-e.getY()));
             selectObject.setBorder(BorderFactory.createLineBorder(Color.BLUE, 0));
