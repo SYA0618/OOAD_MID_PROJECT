@@ -27,6 +27,7 @@ class Select extends BasicObject{
     }
     public void press(MouseEvent e){
         mousePt = e.getPoint();
+        System.out.println(mousePt);
         select = null;
         for(Component component:canvas.getComponents()){
             int offset_X = component.getX();
@@ -34,8 +35,9 @@ class Select extends BasicObject{
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
             if (select == null && result) {
                 select = component;
-                canvas.remove(component);
-                canvas.add(select, 0);
+                canvas.setComponentZOrder(component,0);
+                //canvas.remove(component);
+                //canvas.add(select, 0);
                 ((GraphCanvas) select).isSelected=true;
             }else{
                 GraphCanvas s = (GraphCanvas) component;
@@ -51,13 +53,13 @@ class Select extends BasicObject{
         if(select!=null) {
             int dx = e.getX() - mousePt.x;
             int dy = e.getY() - mousePt.y;
-            select.setLocation(select.getX() + dx, select.getY() + dy);
+            select.setLocation(new Point(select.getX() + dx, select.getY() + dy));
 
             mousePt = e.getPoint();
         }else{
             selectObject.setBounds(Math.min(mousePt.x,e.getX()),Math.min(mousePt.y,e.getY()),Math.abs(mousePt.x-e.getX()),Math.abs(mousePt.y-e.getY()));
             selectObject.setBorder(BorderFactory.createLineBorder(Color.BLUE, 0));
-            selectObject.setBackground(new Color(13,191,140,40));
+            selectObject.setBackground(new Color(135,206,250,46));
             canvas.add(selectObject, 0);
         }
         canvas.repaint();

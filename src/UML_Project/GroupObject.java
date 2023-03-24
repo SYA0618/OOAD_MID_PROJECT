@@ -5,29 +5,20 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GroupObject extends JPanel {
-    JMenuItem group;
+public class GroupObject extends GraphCanvas{
     Canvas canvas;
-
-    Component select = null;
-
-    GroupObject(JMenuItem group, Canvas canvas){
-        this.canvas = canvas;
-        this.group = group;
-
-    }
     ArrayList<Component> groupList;
-    protected GroupCanvas groupPanel;
+    protected GroupObject groupPanel;
+
+    GroupObject(){
+        groupList = new ArrayList<Component>();
+    }
     boolean checkSum(){
         int count = 0;
         for(Component component : canvas.getComponents()){
             if(((GraphCanvas) component).isSelected){count++;}
         }
-        if(count > 1){
-            return true;
-        }else{
-            return false;
-        }
+        return count > 1;
     }
     int maxY(){
         int max_Y = 0;
@@ -66,28 +57,40 @@ public class GroupObject extends JPanel {
         }
         return min_X;
     }
-    void setGroup(){
-        group.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(!checkSum()||canvas.getComponentCount() <1) return;
-                groupPanel = new GroupCanvas();
-                groupList = new ArrayList<Component>();
-                for (Component component : canvas.getComponents()){
 
-                    if(((GraphCanvas) component).isSelected){
-                        groupList.add(component);
-                    }else{
-                        continue;
-                    }
-                }
-                groupPanel.setBounds(minX(), minY(), maxX() - minX() + 110, maxY() - minY() + 90);
-                groupPanel.setBackground(new Color(13, 191, 140, 40));
-                canvas.add(groupPanel,0);
-                canvas.repaint();
-                System.out.println(groupList);
+    void groupObject1 (Canvas canvas){
+        this.canvas = canvas;
+        if(!checkSum()||canvas.getComponentCount() <1) return;
+        for (Component component : canvas.getComponents()){
+//            groupPanel = new GroupObject();
+            if(((GraphCanvas) component).isSelected){
+                groupList.add(component);
             }
-        });
+        }
+        this.setBounds(minX(), minY(), maxX() - minX() + 110, maxY() - minY() + 90);
+        this.setBackground(new Color(13, 191, 140, 40));
+        canvas.add(this,0);
+        canvas.repaint();
+        System.out.println(groupList);
+
+    }
+    @Override
+    public void setLocation(Point p) {
+
+        System.out.println(p);
+        Point offset = new Point();
+        offset.x = p.x-this.getX();
+        offset.y = p.y-this.getY();
+        for (Component component:groupList){
+            component.setLocation(newPoint(offset, component));
+        }
+        super.setLocation(p);
     }
 
+    Point newPoint(Point p, Component component){
+        Point new_Point = new Point();
+        new_Point.x = component.getX()+p.x;
+        new_Point.y = component.getY()+p.y;
+        return new_Point;
+    }
 }

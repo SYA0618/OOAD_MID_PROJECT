@@ -12,6 +12,7 @@ abstract class GraphCanvas extends JPanel implements I_GraphCanvas{
     ConnectionPort port_s = new ConnectionPort(50,80);
     ConnectionPort port_w = new ConnectionPort(0,40);
     boolean isSelected = false;
+    boolean g_isSelected = false;
     final int width = 100;
     final int height = 80;
 }
@@ -45,6 +46,5 @@ class OvalCanvas extends GraphCanvas{
     }
 }
 
-class GroupCanvas extends GraphCanvas{
 
-}
+

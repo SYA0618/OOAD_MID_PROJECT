@@ -2,6 +2,9 @@ package UML_Project;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public abstract class Menu extends JMenu {
     GroupObject groupObject ;
@@ -15,6 +18,7 @@ class FileMenu extends Menu{
         this.add(new JMenuItem("no.1"));
     }
 
+
 }
 
 class EditMenu extends Menu{
@@ -22,8 +26,7 @@ class EditMenu extends Menu{
         this.canvas = canvas;
         this.setText("Edit");
         JMenuItem group = new JMenuItem("Group");
-        groupObject = new GroupObject(group, canvas);
-        groupObject.setGroup();
+        group.addActionListener(actionListener);
         group.setAccelerator(KeyStroke.getKeyStroke('G',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         JMenuItem unGroup = new JMenuItem("UnGroup");
         unGroup.addActionListener(e -> System.out.println("456"));
@@ -32,4 +35,13 @@ class EditMenu extends Menu{
         this.add(unGroup);
 
     }
+
+    ActionListener actionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            groupObject = new GroupObject();
+            groupObject.groupObject1(canvas);
+        }
+    };
+
 }
