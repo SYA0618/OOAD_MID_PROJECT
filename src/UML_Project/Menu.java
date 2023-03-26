@@ -4,10 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public abstract class Menu extends JMenu {
-    GroupObject groupObject ;
+    GroupObject groupObject;
     protected Canvas canvas;
 
 }
@@ -26,21 +25,36 @@ class EditMenu extends Menu{
         this.canvas = canvas;
         this.setText("Edit");
         JMenuItem group = new JMenuItem("Group");
-        group.addActionListener(actionListener);
+        group.addActionListener(group_ActionListener);
         group.setAccelerator(KeyStroke.getKeyStroke('G',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         JMenuItem unGroup = new JMenuItem("UnGroup");
-        unGroup.addActionListener(e -> System.out.println("456"));
+        unGroup.addActionListener(unGroup_ActionListener);
         unGroup.setAccelerator(KeyStroke.getKeyStroke('U',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         this.add(group);
         this.add(unGroup);
 
     }
 
-    ActionListener actionListener = new ActionListener() {
+    ActionListener group_ActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             groupObject = new GroupObject();
-            groupObject.groupObject1(canvas);
+            groupObject.groupFunction(canvas);
+        }
+    };
+
+    ActionListener unGroup_ActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Component component:canvas.getComponents()){
+                if(((GraphCanvas)component).isSelected&&((GraphCanvas)component).isGroupPanel){
+                    for (Component component1:((GroupObject)component).groupList){
+                        ((GraphCanvas)component1).isGroup=false;
+                    }
+                    canvas.remove(component);
+                }
+            }
+            canvas.repaint();
         }
     };
 

@@ -8,7 +8,7 @@ public abstract class BasicObject {
 
     protected Canvas canvas;
     void CreateObject(Canvas canvas, MouseEvent e, GraphCanvas drawArea){
-        drawArea.setBounds(e.getX()-50,e.getY()-40,drawArea.width+10,drawArea.height+10);
+        drawArea.setBounds(e.getX(),e.getY(),drawArea.width+10,drawArea.height+10);
         drawArea.repaint();
         canvas.add(drawArea,0);
         canvas.repaint();
@@ -27,7 +27,6 @@ class Select extends BasicObject{
     }
     public void press(MouseEvent e){
         mousePt = e.getPoint();
-        System.out.println(mousePt);
         select = null;
         for(Component component:canvas.getComponents()){
             int offset_X = component.getX();
@@ -39,6 +38,7 @@ class Select extends BasicObject{
                 //canvas.remove(component);
                 //canvas.add(select, 0);
                 ((GraphCanvas) select).isSelected=true;
+
             }else{
                 GraphCanvas s = (GraphCanvas) component;
                 s.isSelected=false;
@@ -59,23 +59,58 @@ class Select extends BasicObject{
         }else{
             selectObject.setBounds(Math.min(mousePt.x,e.getX()),Math.min(mousePt.y,e.getY()),Math.abs(mousePt.x-e.getX()),Math.abs(mousePt.y-e.getY()));
             selectObject.setBorder(BorderFactory.createLineBorder(Color.BLUE, 0));
-            selectObject.setBackground(new Color(135,206,250,46));
+            selectObject.setBackground(new Color(135,206,250,80));
             canvas.add(selectObject, 0);
         }
         canvas.repaint();
     }
     public void release(MouseEvent e){
         if(selectObject!=null) {
-        for(Component component:canvas.getComponents()){
-            if(component.getX()>Math.min(mousePt.x,e.getX())&&component.getY()>Math.min(mousePt.y,e.getY())&&component.getX()<Math.max(mousePt.x,e.getX())&&component.getY()<Math.max(mousePt.y,e.getY())){
-                ((GraphCanvas) component).isSelected=true;
+            for(Component component:canvas.getComponents()){
+                if(component.getX()+component.getWidth()>Math.min(mousePt.x,e.getX())&&component.getY()+component.getHeight()>Math.min(mousePt.y,e.getY())&&component.getX()+component.getWidth()<Math.max(mousePt.x,e.getX())&&component.getY()+component.getHeight()<Math.max(mousePt.y,e.getY())){
+                    if(!((GraphCanvas) component).isGroup) {
+                        ((GraphCanvas) component).isSelected = true;
+                    }
+                }
             }
-        }
             canvas.remove(selectObject);
-
         }
         canvas.repaint();
     }
+}
+class Association_Line extends BasicObject{
+    private Point mousePt;
+
+    Association_Line(Canvas canvas){
+        this.canvas = canvas;
+    }
+    public void press(MouseEvent e){
+        mousePt = e.getPoint();
+        for(Component component:canvas.getComponents()){
+            int offset_X = component.getX();
+            int offset_Y = component.getY();
+            boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
+            if(result){
+                ((GraphCanvas) component).isSelected=true;
+                for(Point connectionPort: ((GraphCanvas) component).port){
+                    double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
+
+                    System.out.println(distance);
+                }
+
+            }
+        }
+        canvas.repaint();
+    }
+    public void drag(MouseEvent e){
+
+    }
+
+    public void release(MouseEvent e){
+
+    }
+
+
 }
 class Paint_My_Class extends BasicObject{
     Paint_My_Class(Canvas canvas){

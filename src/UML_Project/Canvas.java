@@ -1,12 +1,15 @@
 package UML_Project;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 public class Canvas extends JPanel implements MouseListener,MouseMotionListener {
     ButtonState state;
+    ArrayList<Component> canvasList;
 
     Canvas(){
         this.addMouseListener(this);
@@ -16,7 +19,6 @@ public class Canvas extends JPanel implements MouseListener,MouseMotionListener 
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
