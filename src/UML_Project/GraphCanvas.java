@@ -2,6 +2,7 @@ package UML_Project;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 
 interface I_GraphCanvas{
     void paint(Graphics g);
@@ -61,13 +62,11 @@ class GroupCanvas extends GraphCanvas{
 //        }else {
 //            setBackground(new Color(13, 191, 140, 40));
 //        }
-//        System.out.println(System.identityHashCode(this));
+//        System.out.println(this);
 //    }
 }
 
-class association_line extends GraphCanvas{
 
-}
 
 
 

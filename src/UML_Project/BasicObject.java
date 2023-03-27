@@ -78,27 +78,38 @@ class Select extends BasicObject{
         canvas.repaint();
     }
 }
-class Association_Line extends BasicObject{
+class Association_Line1 extends BasicObject{
     private Point mousePt;
-
-    Association_Line(Canvas canvas){
+    private Point canvasMousePt;
+    private Point d_canvasMousePt;
+    Component cur_Component;
+    Association_Line1(Canvas canvas){
         this.canvas = canvas;
+        canvasMousePt = new Point();
+        d_canvasMousePt = new Point();
     }
     public void press(MouseEvent e){
         mousePt = e.getPoint();
         for(Component component:canvas.getComponents()){
             int offset_X = component.getX();
             int offset_Y = component.getY();
+            double min = Integer.MAX_VALUE;
+            Point minPort = new Point();
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
             if(result){
-                ((GraphCanvas) component).isSelected=true;
+                System.out.println("Press");
+                cur_Component = component;
                 for(Point connectionPort: ((GraphCanvas) component).port){
                     double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
-
-                    System.out.println(distance);
+                    if(distance < min){
+                        min = distance;
+                        minPort = connectionPort;
+                    }
                 }
-
+                canvasMousePt.x = minPort.x + component.getX()+5;
+                canvasMousePt.y = minPort.y + component.getY()+5;
             }
+
         }
         canvas.repaint();
     }
@@ -107,7 +118,30 @@ class Association_Line extends BasicObject{
     }
 
     public void release(MouseEvent e){
-
+        mousePt = e.getPoint();
+        for(Component component:canvas.getComponents()){
+            int offset_X = component.getX();
+            int offset_Y = component.getY();
+            double min = Integer.MAX_VALUE;
+            Point minPort1 = new Point();
+            boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
+            if(result && cur_Component != component){
+                System.out.println("release");
+                for(Point connectionPort: ((GraphCanvas) component).port){
+                    double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
+                    if(distance < min){
+                        min = distance;
+                        minPort1 = connectionPort;
+                    }
+                }
+                d_canvasMousePt.x = minPort1.x + component.getX()+5;
+                d_canvasMousePt.y = minPort1.y + component.getY()+5;
+                AssociationLine associationLine = new AssociationLine(canvasMousePt,d_canvasMousePt);
+                canvas.cls.add(associationLine);
+            }
+        }
+        System.out.println(canvas.cls);
+        canvas.repaint();
     }
 
 

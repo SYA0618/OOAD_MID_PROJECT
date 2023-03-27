@@ -6,7 +6,7 @@ public class ButtonState {
 
     ButtonState(Canvas canvas){
         mode = new BasicObject[]{new Select(canvas),
-                new Association_Line(canvas),
+                new Association_Line1(canvas),
                 new Select(canvas),
                 new Select(canvas),
                 new Paint_My_Class(canvas),
