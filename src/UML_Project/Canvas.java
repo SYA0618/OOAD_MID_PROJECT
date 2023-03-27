@@ -9,11 +9,13 @@ import java.util.ArrayList;
 
 public class Canvas extends JPanel implements MouseListener,MouseMotionListener {
     ButtonState state;
-    ArrayList<ConnectionLine> cls = new ArrayList<ConnectionLine>();
+    ArrayList<ConnectionLine> cls;
+
 
     Canvas(){
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        cls = new ArrayList<ConnectionLine>();
     }
 
 
@@ -58,4 +60,5 @@ public class Canvas extends JPanel implements MouseListener,MouseMotionListener 
             connectionLine.drawLine1(g);
         }
     }
+
 }

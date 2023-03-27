@@ -9,7 +9,6 @@ public abstract class BasicObject {
     protected Canvas canvas;
     void CreateObject(Canvas canvas, MouseEvent e, GraphCanvas drawArea){
         drawArea.setBounds(e.getX(),e.getY(),drawArea.width+10,drawArea.height+10);
-        drawArea.repaint();
         canvas.add(drawArea,0);
         canvas.repaint();
     }
@@ -138,9 +137,10 @@ class Association_Line1 extends BasicObject{
                 d_canvasMousePt.y = minPort1.y + component.getY()+5;
                 AssociationLine associationLine = new AssociationLine(canvasMousePt,d_canvasMousePt);
                 canvas.cls.add(associationLine);
+
             }
         }
-        System.out.println(canvas.cls);
+        System.out.println(canvas.getComponents().length);
         canvas.repaint();
     }
 
