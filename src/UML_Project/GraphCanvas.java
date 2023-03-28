@@ -13,12 +13,15 @@ abstract class GraphCanvas extends JPanel implements I_GraphCanvas{
     boolean isGroupPanel =false;
     final int width = 100;
     final int height = 80;
+    String objName = "";
     ConnectionPort port_n = new ConnectionPort(width/2, 0);
     ConnectionPort port_e = new ConnectionPort(width,height/2);
     ConnectionPort port_s = new ConnectionPort(width/2,height);
     ConnectionPort port_w = new ConnectionPort(0,height/2);
 
     ConnectionPort[] port = {port_n,port_e,port_s,port_w};
+
+    public abstract void setName(String name);
 }
 class RectCanvas extends GraphCanvas{
     @Override
@@ -33,7 +36,11 @@ class RectCanvas extends GraphCanvas{
         g.drawLine(5,height/3+5,width+5,height/3+5);
         g.drawLine(5,height/3*2+5,width+5,height/3*2+5);
         g.drawRect(5, 5, width, height);
+        g.drawString(objName, width/2-5, height/2+10);
 
+    }
+    public void setName(String name){
+        objName = name;
     }
 }
 class OvalCanvas extends GraphCanvas{
@@ -47,6 +54,10 @@ class OvalCanvas extends GraphCanvas{
         }
         g.setColor(Color.BLACK);
         g.drawOval(5, 5, width, height);
+        g.drawString(objName, width/2-5, height/2+10);
+    }
+    public void setName(String name){
+        objName = name;
     }
 }
 
@@ -64,6 +75,7 @@ class GroupCanvas extends GraphCanvas{
 //        }
 //        System.out.println(this);
 //    }
+    public void setName(String name){}
 }
 
 

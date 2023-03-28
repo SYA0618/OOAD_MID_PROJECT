@@ -30,8 +30,12 @@ class EditMenu extends Menu{
         JMenuItem unGroup = new JMenuItem("UnGroup");
         unGroup.addActionListener(unGroup_ActionListener);
         unGroup.setAccelerator(KeyStroke.getKeyStroke('U',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        JMenuItem chName = new JMenuItem("Change Name");
+        chName.addActionListener(changeObjectName);
+        chName.setAccelerator(KeyStroke.getKeyStroke('N',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         this.add(group);
         this.add(unGroup);
+        this.add(chName);
 
     }
 
@@ -58,4 +62,20 @@ class EditMenu extends Menu{
         }
     };
 
+    ActionListener changeObjectName = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFrame jFrame = new JFrame();
+            String getMessage = JOptionPane.showInputDialog(jFrame, "Enter Object Name");
+            if (getMessage==null) return;
+            JOptionPane.showMessageDialog(jFrame, "Name: "+getMessage);
+            for(Component component: canvas.getComponents()){
+                if(((GraphCanvas)component).isSelected){
+                    component.setName(getMessage);
+                    break;
+                }
+            }
+            canvas.repaint();
+        }
+    };
 }

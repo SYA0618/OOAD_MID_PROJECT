@@ -7,8 +7,8 @@ public class ButtonState {
     ButtonState(Canvas canvas){
         mode = new BasicObject[]{new Select(canvas),
                 new Association_Line1(canvas),
-                new Select(canvas),
-                new Select(canvas),
+                new GeneralizationLine1(canvas),
+                new CompositionLine1(canvas),
                 new Paint_My_Class(canvas),
                 new Paint_Use_Case(canvas)} ;
         curMode = mode[0];
