@@ -38,7 +38,13 @@ class EditMenu extends Menu{
         this.add(chName);
 
     }
-
+    boolean checkSum(){
+        int count = 0;
+        for(Component component : canvas.getComponents()){
+            if(((GraphCanvas) component).isSelected){count++;}
+        }
+        return count > 1;
+    }
     ActionListener group_ActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -67,12 +73,13 @@ class EditMenu extends Menu{
         public void actionPerformed(ActionEvent e) {
             JFrame jFrame = new JFrame();
             String getMessage = JOptionPane.showInputDialog(jFrame, "Enter Object Name");
-            if (getMessage==null) return;
-            JOptionPane.showMessageDialog(jFrame, "Name: "+getMessage);
+            if (getMessage==null||checkSum()) {
+                JOptionPane.showMessageDialog(jFrame, "Can't enter null or select greater than two object");
+                return;
+            }
             for(Component component: canvas.getComponents()){
                 if(((GraphCanvas)component).isSelected){
                     component.setName(getMessage);
-                    break;
                 }
             }
             canvas.repaint();

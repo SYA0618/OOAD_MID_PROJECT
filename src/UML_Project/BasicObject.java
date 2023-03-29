@@ -92,15 +92,16 @@ class Association_Line1 extends BasicObject{
         minPort = new Point();
         canvasMousePt = new Point();
         for(Component component:canvas.getComponents()){
+            if(((GraphCanvas)component).isGroupPanel) break;
             int offset_X = component.getX();
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
 
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
-            if(result&&!((GraphCanvas)component).isGroupPanel){
+            if(result && !((GraphCanvas)component).isGroupPanel){
                 System.out.println("Press");
                 cur_Component = component;
-                for(Point connectionPort: ((GraphCanvas) component).port){
+                for(Point connectionPort:((GraphCanvas) component).port){
                     double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
                     if(distance < min){
                         min = distance;
@@ -123,6 +124,7 @@ class Association_Line1 extends BasicObject{
         minPort1 = new Point();
         d_canvasMousePt = new Point();
         for(Component component:canvas.getComponents()){
+            if(((GraphCanvas)component).isGroupPanel) break;
             int offset_X = component.getX();
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
