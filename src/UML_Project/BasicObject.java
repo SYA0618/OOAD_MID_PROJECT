@@ -92,7 +92,6 @@ class Association_Line1 extends BasicObject{
         minPort = new Point();
         canvasMousePt = new Point();
         for(Component component:canvas.getComponents()){
-            if(((GraphCanvas)component).isGroupPanel) break;
             int offset_X = component.getX();
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
@@ -124,7 +123,7 @@ class Association_Line1 extends BasicObject{
         minPort1 = new Point();
         d_canvasMousePt = new Point();
         for(Component component:canvas.getComponents()){
-            if(((GraphCanvas)component).isGroupPanel) break;
+            if(((GraphCanvas)component).isGroupPanel || ((GraphCanvas)cur_Component).isGroupPanel) break;
             int offset_X = component.getX();
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
