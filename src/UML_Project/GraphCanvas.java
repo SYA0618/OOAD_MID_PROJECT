@@ -11,7 +11,6 @@ abstract class GraphCanvas extends JPanel implements I_GraphCanvas{
     boolean isSelected = false;
     boolean isGroup = false;
     boolean isGroupPanel =false;
-    boolean Grouped = false;
     final int width = 100;
     final int height = 80;
     String objName = "";

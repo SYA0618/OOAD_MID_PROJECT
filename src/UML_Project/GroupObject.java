@@ -82,11 +82,9 @@ public class GroupObject extends GroupCanvas{
             if(((GraphCanvas) component).isSelected) {
                 tempList.add(component);
             }
-//            groupPanel = new GroupObject();
             if(((GraphCanvas) component).isSelected&&!((GraphCanvas) component).isGroup){
                 ((GraphCanvas) component).isGroup = true;
                 ((GraphCanvas) component).isSelected = false;
-                ((GraphCanvas) component).Grouped = true;
                 groupList.add(component);
             }
         }
