@@ -95,9 +95,9 @@ class Association_Line1 extends BasicObject{
             int offset_X = component.getX();
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
-            if(((GraphCanvas)component).isGroupPanel) break;
+            //if(((GraphCanvas)component).isGroupPanel) break;
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
-            if(result && !((GraphCanvas)component).isGroupPanel){
+            if(result && !((GraphCanvas)component).isGroupPanel && !((GraphCanvas)component).isGroup){
                 System.out.println("Press");
                 cur_Component = component;
                 for(Point connectionPort:((GraphCanvas) component).port){
@@ -123,12 +123,11 @@ class Association_Line1 extends BasicObject{
         minPort1 = new Point();
         d_canvasMousePt = new Point();
         for(Component component:canvas.getComponents()){
-            if(cur_Component == null || ((GraphCanvas)cur_Component).isGroupPanel || ((GraphCanvas)component).isGroupPanel) break;
             int offset_X = component.getX();
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
-            if(result && cur_Component != component && !((GraphCanvas)component).isGroupPanel){
+            if(result && cur_Component != component && cur_Component != null && !((GraphCanvas)component).isGroupPanel && !((GraphCanvas)component).isGroup){
                 System.out.println("release");
                 for(Point connectionPort: ((GraphCanvas) component).port){
                     double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
@@ -137,17 +136,18 @@ class Association_Line1 extends BasicObject{
                         minPort1 = connectionPort;
                     }
                 }
+//                if(cur_Component == null || ((GraphCanvas)cur_Component).isGroupPanel || ((GraphCanvas)component).isGroupPanel) break;
                 d_canvasMousePt.x = minPort1.x + component.getX()+5;
                 d_canvasMousePt.y = minPort1.y + component.getY()+5;
                 System.out.println(minPort);
                 AssociationLine associationLine = new AssociationLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
-                canvasMousePt=null;
-                d_canvasMousePt=null;
-                cur_Component=null;
                 canvas.cls.add(associationLine);
-
+                //break;
             }
         }
+        canvasMousePt=null;
+        d_canvasMousePt=null;
+        cur_Component=null;
         canvas.repaint();
     }
 
@@ -171,12 +171,12 @@ class GeneralizationLine1 extends BasicObject{
             int offset_X = component.getX();
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
-
+            //if(((GraphCanvas)component).isGroupPanel) break;
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
-            if(result&&!((GraphCanvas)component).isGroupPanel){
+            if(result && !((GraphCanvas)component).isGroupPanel && !((GraphCanvas)component).isGroup){
                 System.out.println("Press");
                 cur_Component = component;
-                for(Point connectionPort: ((GraphCanvas) component).port){
+                for(Point connectionPort:((GraphCanvas) component).port){
                     double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
                     if(distance < min){
                         min = distance;
@@ -203,7 +203,7 @@ class GeneralizationLine1 extends BasicObject{
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
-            if(result && cur_Component != component && !((GraphCanvas)component).isGroupPanel){
+            if(result && cur_Component != component && cur_Component != null && !((GraphCanvas)component).isGroupPanel && !((GraphCanvas)component).isGroup){
                 System.out.println("release");
                 for(Point connectionPort: ((GraphCanvas) component).port){
                     double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
@@ -212,15 +212,18 @@ class GeneralizationLine1 extends BasicObject{
                         minPort1 = connectionPort;
                     }
                 }
+//                if(cur_Component == null || ((GraphCanvas)cur_Component).isGroupPanel || ((GraphCanvas)component).isGroupPanel) break;
                 d_canvasMousePt.x = minPort1.x + component.getX()+5;
                 d_canvasMousePt.y = minPort1.y + component.getY()+5;
+                System.out.println(minPort);
                 GeneralizationLine generalizationLine = new GeneralizationLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
-                canvasMousePt=null;
-                d_canvasMousePt=null;
                 canvas.cls.add(generalizationLine);
-
+                //break;
             }
         }
+        canvasMousePt=null;
+        d_canvasMousePt=null;
+        cur_Component=null;
         canvas.repaint();
     }
 
@@ -244,12 +247,12 @@ class CompositionLine1 extends BasicObject{
             int offset_X = component.getX();
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
-
+            //if(((GraphCanvas)component).isGroupPanel) break;
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
-            if(result&&!((GraphCanvas)component).isGroupPanel){
+            if(result && !((GraphCanvas)component).isGroupPanel && !((GraphCanvas)component).isGroup){
                 System.out.println("Press");
                 cur_Component = component;
-                for(Point connectionPort: ((GraphCanvas) component).port){
+                for(Point connectionPort:((GraphCanvas) component).port){
                     double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
                     if(distance < min){
                         min = distance;
@@ -259,7 +262,6 @@ class CompositionLine1 extends BasicObject{
                 canvasMousePt.x = minPort.x + component.getX()+5;
                 canvasMousePt.y = minPort.y + component.getY()+5;
             }
-
         }
         canvas.repaint();
     }
@@ -276,7 +278,7 @@ class CompositionLine1 extends BasicObject{
             int offset_Y = component.getY();
             double min = Integer.MAX_VALUE;
             boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
-            if(result && cur_Component != component && !((GraphCanvas)component).isGroupPanel){
+            if(result && cur_Component != component && cur_Component != null && !((GraphCanvas)component).isGroupPanel && !((GraphCanvas)component).isGroup){
                 System.out.println("release");
                 for(Point connectionPort: ((GraphCanvas) component).port){
                     double distance = Math.hypot(mousePt.x-offset_X-connectionPort.x,mousePt.y-offset_Y-connectionPort.y);
@@ -285,15 +287,18 @@ class CompositionLine1 extends BasicObject{
                         minPort1 = connectionPort;
                     }
                 }
+//                if(cur_Component == null || ((GraphCanvas)cur_Component).isGroupPanel || ((GraphCanvas)component).isGroupPanel) break;
                 d_canvasMousePt.x = minPort1.x + component.getX()+5;
                 d_canvasMousePt.y = minPort1.y + component.getY()+5;
+                System.out.println(minPort);
                 CompositionLine compositionLine = new CompositionLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
-                canvasMousePt=null;
-                d_canvasMousePt=null;
                 canvas.cls.add(compositionLine);
-
+                //break;
             }
         }
+        canvasMousePt=null;
+        d_canvasMousePt=null;
+        cur_Component=null;
         canvas.repaint();
     }
 

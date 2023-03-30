@@ -25,11 +25,13 @@ public class Canvas extends JPanel implements MouseListener,MouseMotionListener 
 
     @Override
     public void mousePressed(MouseEvent e) {
+
         state.getMode().press(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
         state.getMode().release(e);
     }
 
