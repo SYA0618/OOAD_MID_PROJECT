@@ -142,13 +142,14 @@ class Association_Line1 extends BasicObject{
                 System.out.println(minPort);
                 AssociationLine associationLine = new AssociationLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
                 canvas.cls.add(associationLine);
-                //break;
+                break;
             }
         }
         canvasMousePt=null;
         d_canvasMousePt=null;
         cur_Component=null;
         canvas.repaint();
+
     }
 
 
@@ -218,7 +219,7 @@ class GeneralizationLine1 extends BasicObject{
                 System.out.println(minPort);
                 GeneralizationLine generalizationLine = new GeneralizationLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
                 canvas.cls.add(generalizationLine);
-                //break;
+                break;
             }
         }
         canvasMousePt=null;
@@ -293,7 +294,7 @@ class CompositionLine1 extends BasicObject{
                 System.out.println(minPort);
                 CompositionLine compositionLine = new CompositionLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
                 canvas.cls.add(compositionLine);
-                //break;
+                break;
             }
         }
         canvasMousePt=null;
