@@ -4,10 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 
-interface I_GraphCanvas{
-    void paint(Graphics g);
-}
-abstract class GraphCanvas extends JPanel implements I_GraphCanvas{
+public abstract class GraphCanvas extends JPanel {
     public boolean isSelected = false;
     public boolean isGroup = false;
     public boolean isGroupPanel =false;

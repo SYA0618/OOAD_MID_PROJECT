@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public abstract class Menu extends JMenu {
-    GroupObject groupObject;
+public class Menu extends JMenu {
     protected Canvas canvas;
 
 }
@@ -20,6 +19,7 @@ class FileMenu extends Menu{
 }
 
 class EditMenu extends Menu{
+    GroupObject groupObject;
     EditMenu(Canvas canvas){
         this.canvas = canvas;
         setText("Edit");
@@ -32,9 +32,9 @@ class EditMenu extends Menu{
         JMenuItem chName = new JMenuItem("Change Name");
         chName.addActionListener(changeObjectName);
         chName.setAccelerator(KeyStroke.getKeyStroke('N',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        this.add(group);
-        this.add(unGroup);
-        this.add(chName);
+        add(group);
+        add(unGroup);
+        add(chName);
 
     }
     private boolean checkSum(){
@@ -61,6 +61,7 @@ class EditMenu extends Menu{
                         ((GraphCanvas)component1).isGroup=false;
                     }
                     canvas.remove(component);
+                    break;
                 }
             }
             canvas.repaint();

@@ -7,25 +7,21 @@ import java.io.File;
 import java.io.IOException;
 
 public class Panel extends JPanel{
-    private JFrame frame;
-    private JMenuBar bar;
-    private JSplitPane pane;
-    private static int frameWidthSize = 800;
-    private static int frameHeightSize = 700;
     Panel (Canvas panelofCanvas) throws IOException {
         JPanel panelofButton = new JPanel();
         /* 框架設定 */
-        frame = creatFrame(panelofCanvas);
+        JFrame frame = creatFrame(panelofCanvas);
         /* Menu設定 */
-        bar = createBar(panelofCanvas);
+        JMenuBar bar = createBar(panelofCanvas);
         /* 分割面板 */
-        pane = splitPane(panelofCanvas, panelofButton);
+        JSplitPane pane = splitPane(panelofCanvas, panelofButton);
         frame.setJMenuBar(bar);
         frame.add(pane);
         frame.setVisible(true);
     }
     private JFrame creatFrame(Canvas panelofCanvas) throws IOException {
-
+        int frameWidthSize = 800;
+        int frameHeightSize = 700;
         JFrame frame = new JFrame("UML editor");
         frame.setAlwaysOnTop(false);
         frame.setResizable(false);
@@ -74,8 +70,8 @@ public class Panel extends JPanel{
         }
         btn[0].setSelected(true);
         pane.setLeftComponent(panelofButton);
-        /*右半邊畫畫*/
 
+        /*右半邊畫畫*/
         panelofCanvas.setBackground(Color.WHITE);
         panelofCanvas.setLayout(null);//layout set null防止自動排版
         pane.setRightComponent(panelofCanvas);
