@@ -13,17 +13,16 @@ public abstract class Menu extends JMenu {
 
 class FileMenu extends Menu{
     FileMenu(){
-        this.setText("File");
-        this.add(new JMenuItem("no.1"));
+        setText("File");
+        add(new JMenuItem("no.1"));
     }
-
 
 }
 
 class EditMenu extends Menu{
     EditMenu(Canvas canvas){
         this.canvas = canvas;
-        this.setText("Edit");
+        setText("Edit");
         JMenuItem group = new JMenuItem("Group");
         group.addActionListener(group_ActionListener);
         group.setAccelerator(KeyStroke.getKeyStroke('G',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
@@ -38,7 +37,7 @@ class EditMenu extends Menu{
         this.add(chName);
 
     }
-    boolean checkSum(){
+    private boolean checkSum(){
         int count = 0;
         for(Component component : canvas.getComponents()){
             if(((GraphCanvas) component).isSelected){count++;}
@@ -74,7 +73,7 @@ class EditMenu extends Menu{
             JFrame jFrame = new JFrame();
             String getMessage = JOptionPane.showInputDialog(jFrame, "Enter Object Name");
             if (getMessage==null||checkSum()) {
-                JOptionPane.showMessageDialog(jFrame, "Can't enter null or select greater than two object");
+                //JOptionPane.showMessageDialog(jFrame, "Can't enter null or select greater than two object");
                 return;
             }
             for(Component component: canvas.getComponents()){

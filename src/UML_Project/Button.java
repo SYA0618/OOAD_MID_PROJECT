@@ -13,18 +13,21 @@ abstract class IconButton extends JToggleButton {
 
     IconButton(String iconPath, String tipText, int id, ButtonState state,Canvas canvas) {
         ImageIcon icon = new ImageIcon(iconPath);
-        this.setSize(80, 80);
-        Image temp1 = icon.getImage().getScaledInstance(this.getWidth(), this.getHeight(), icon.getImage().SCALE_DEFAULT);//根據Button Size調整
-        icon = new ImageIcon(temp1);
+        int iconWidth = 80;
+        int iconHeight = 80;
+        setSize(iconWidth, iconHeight);
+        //Image temp1 = icon.getImage().getScaledInstance(this.getWidth(), this.getHeight(), icon.getImage().SCALE_DEFAULT);//根據Button Size調整
+        //icon = new ImageIcon(temp1);
         //this.setContentAreaFilled(false); //按鈕邊框顯示
-        this.setIcon(icon);
-        this.setToolTipText(tipText);
-        this.addActionListener(listener);
+        setIcon(icon);
+        setToolTipText(tipText);
+        addActionListener(listener);
         this.id = id;
         this.state = state;
         this.canvas = canvas;
 
     }
+
     ActionListener listener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {

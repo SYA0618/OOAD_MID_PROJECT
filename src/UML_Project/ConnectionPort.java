@@ -9,7 +9,7 @@ public class ConnectionPort extends Point {
         int width = 10;
         g.fillRect(x,y, width, height);
     }
-    protected ConnectionPort(int x, int y){
+    ConnectionPort(int x, int y){
         super(x, y);
     }
 
