@@ -62,16 +62,17 @@ class Select extends BasicObject{
         canvas.repaint();
     }
     public void release(MouseEvent e){
-        if(selectObject!=null) {
-            for(Component component:canvas.getComponents()){
-                if(component.getX()+component.getWidth()>Math.min(mousePt.x,e.getX())&&component.getY()+component.getHeight()>Math.min(mousePt.y,e.getY())&&component.getX()+component.getWidth()<Math.max(mousePt.x,e.getX())&&component.getY()+component.getHeight()<Math.max(mousePt.y,e.getY())){
-                    if(!((GraphCanvas) component).isGroup) {
-                        ((GraphCanvas) component).isSelected = true;
-                    }
+        if(selectObject == null) {
+            return;
+        }
+        for(Component component:canvas.getComponents()){
+            if(component.getX()+component.getWidth()>Math.min(mousePt.x,e.getX())&&component.getY()+component.getHeight()>Math.min(mousePt.y,e.getY())&&component.getX()+component.getWidth()<Math.max(mousePt.x,e.getX())&&component.getY()+component.getHeight()<Math.max(mousePt.y,e.getY())){
+                if(!((GraphCanvas) component).isGroup) {
+                    ((GraphCanvas) component).isSelected = true;
                 }
             }
-            canvas.remove(selectObject);
         }
+        canvas.remove(selectObject);
         canvas.repaint();
     }
 
@@ -84,8 +85,13 @@ class LineObject extends BasicObject {
     protected Point minPort;
     protected Point minPort1;
     private static final int offset = 5;
-    public void press(MouseEvent e){}
-    public void drag(MouseEvent e){}
+    public void press(MouseEvent e){
+        pressObject(e);
+        canvas.repaint();
+    }
+    public void drag(MouseEvent e){
+        canvas.repaint();
+    }
     public void release(MouseEvent e){}
     protected void pressObject(MouseEvent e){
         mousePt = e.getPoint();
@@ -128,7 +134,7 @@ class LineObject extends BasicObject {
         }
         return false;
     }
-    protected void initPoint(Point canvasMousePt, Point d_canvasMousePt, Component cur_Component){
+    protected void initPoint(){
         canvasMousePt = null;
         d_canvasMousePt = null;
         cur_Component = null;
@@ -139,14 +145,7 @@ class Association_Line1 extends LineObject{
     Association_Line1(Canvas canvas){
         this.canvas = canvas;
     }
-    public void press(MouseEvent e){
-        pressObject(e);
-        canvas.repaint();
-    }
 
-    public void drag(MouseEvent e){
-        canvas.repaint();
-    }
 
     public void release(MouseEvent e){
         mousePt = e.getPoint();
@@ -159,7 +158,7 @@ class Association_Line1 extends LineObject{
                 break;
             }
         }
-        initPoint(canvasMousePt, d_canvasMousePt, cur_Component);
+        initPoint();
         canvas.repaint();
 
     }
@@ -169,13 +168,6 @@ class Association_Line1 extends LineObject{
 class GeneralizationLine1 extends LineObject{
     GeneralizationLine1(Canvas canvas){
         this.canvas = canvas;
-    }
-    public void press(MouseEvent e){
-        pressObject(e);
-        canvas.repaint();
-    }
-    public void drag(MouseEvent e){
-        canvas.repaint();
     }
 
     public void release(MouseEvent e){
@@ -189,7 +181,7 @@ class GeneralizationLine1 extends LineObject{
                 break;
             }
         }
-        initPoint(canvasMousePt, d_canvasMousePt, cur_Component);
+        initPoint();
         canvas.repaint();
     }
 
@@ -198,13 +190,6 @@ class GeneralizationLine1 extends LineObject{
 class CompositionLine1 extends LineObject{
     CompositionLine1(Canvas canvas){
         this.canvas = canvas;
-    }
-    public void press(MouseEvent e){
-        pressObject(e);
-        canvas.repaint();
-    }
-    public void drag(MouseEvent e){
-        canvas.repaint();
     }
 
     public void release(MouseEvent e){
@@ -218,7 +203,7 @@ class CompositionLine1 extends LineObject{
                 break;
             }
         }
-        initPoint(canvasMousePt, d_canvasMousePt, cur_Component);
+        initPoint();
         canvas.repaint();
     }
 
