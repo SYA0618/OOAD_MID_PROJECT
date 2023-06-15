@@ -80,7 +80,7 @@ class Select extends BasicObject{
 class LineObject extends BasicObject {
     protected Point mousePt;
     protected Point canvasMousePt;
-    protected Point d_canvasMousePt;
+    protected Point d_MousePt;
     protected Component cur_Component;
     protected Point minPort;
     protected Point minPort1;
@@ -128,15 +128,15 @@ class LineObject extends BasicObject {
         boolean result = component.contains(e.getX() - offset_X, e.getY() - offset_Y);
         if(result && cur_Component != component && cur_Component != null && !((GraphCanvas)component).isGroupPanel && !((GraphCanvas)component).isGroup){
             minPort1 = culClosestPort(component, mousePt, offset_X, offset_Y);
-            d_canvasMousePt.x = minPort1.x + component.getX() + offset;
-            d_canvasMousePt.y = minPort1.y + component.getY() + offset;
+            d_MousePt.x = minPort1.x + component.getX() + offset;
+            d_MousePt.y = minPort1.y + component.getY() + offset;
             return true;
         }
         return false;
     }
     protected void initPoint(){
         canvasMousePt = null;
-        d_canvasMousePt = null;
+        d_MousePt = null;
         cur_Component = null;
     }
 }
@@ -150,7 +150,7 @@ class Association_Line1 extends LineObject{
     public void release(MouseEvent e){
         mousePt = e.getPoint();
         minPort1 = new Point();
-        d_canvasMousePt = new Point();
+        d_MousePt = new Point();
         for(Component component:canvas.getComponents()){
             if(releaseObject(e, component)){
                 AssociationLine associationLine = new AssociationLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
@@ -173,7 +173,7 @@ class GeneralizationLine1 extends LineObject{
     public void release(MouseEvent e){
         mousePt = e.getPoint();
         minPort1 = new Point();
-        d_canvasMousePt = new Point();
+        d_MousePt = new Point();
         for(Component component:canvas.getComponents()){
             if(releaseObject(e, component)){
                 GeneralizationLine generalizationLine = new GeneralizationLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
@@ -195,7 +195,7 @@ class CompositionLine1 extends LineObject{
     public void release(MouseEvent e){
         mousePt = e.getPoint();
         minPort1 = new Point();
-        d_canvasMousePt = new Point();
+        d_MousePt = new Point();
         for(Component component:canvas.getComponents()){
             if(releaseObject(e, component)){
                 CompositionLine compositionLine = new CompositionLine(minPort,minPort1, (GraphCanvas) cur_Component, (GraphCanvas) component);
@@ -209,7 +209,7 @@ class CompositionLine1 extends LineObject{
 
 
 }
-class Paint_My_Class extends BasicObject{
+class Paint_My_Class extends BasicObject {
     Paint_My_Class(Canvas canvas){
         this.canvas = canvas;
     }
@@ -220,7 +220,7 @@ class Paint_My_Class extends BasicObject{
     public void drag(MouseEvent e){}
     public void release(MouseEvent e){}
 }
-class Paint_Use_Case extends BasicObject{
+class Paint_Use_Case extends BasicObject {
     Paint_Use_Case(Canvas canvas){
         this.canvas = canvas;
     }

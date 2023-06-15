@@ -8,8 +8,8 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 public class Canvas extends JPanel implements MouseListener,MouseMotionListener {
-    ButtonState state;
-    ArrayList<ConnectionLine> cls;
+    public ButtonState state;
+    public ArrayList<ConnectionLine> cls;
 
 
     Canvas(){

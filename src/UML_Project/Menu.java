@@ -56,7 +56,7 @@ class EditMenu extends Menu{
         @Override
         public void actionPerformed(ActionEvent e) {
             for (Component component:canvas.getComponents()){
-                if(((GraphCanvas)component).isSelected&&((GraphCanvas)component).isGroupPanel){
+                if(((GraphCanvas)component).isSelected&&((GraphCanvas)component).isGroupPanel&&!checkSum()){
                     for (Component component1:((GroupObject)component).groupList){
                         ((GraphCanvas)component1).isGroup=false;
                     }
