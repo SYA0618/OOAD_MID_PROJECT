@@ -4,15 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 
-interface I_GraphCanvas{
-    void paint(Graphics g);
-}
-abstract class GraphCanvas extends JPanel implements I_GraphCanvas{
-    boolean isSelected = false;
-    boolean isGroup = false;
-    boolean isGroupPanel =false;
+public abstract class GraphCanvas extends JPanel {
+    public boolean isSelected = false;
+    public boolean isGroup = false;
+    public boolean isGroupPanel =false;
     final int width = 100;
     final int height = 80;
+    final int offset = 5;
     String objName = "";
     ConnectionPort port_n = new ConnectionPort(width/2, 0);
     ConnectionPort port_e = new ConnectionPort(width,height/2);
@@ -33,10 +31,10 @@ class RectCanvas extends GraphCanvas{
             port_w.drawPoint(g);
         }
         g.setColor(Color.BLACK);
-        g.drawLine(5,height/3+5,width+5,height/3+5);
-        g.drawLine(5,height/3*2+5,width+5,height/3*2+5);
-        g.drawRect(5, 5, width, height);
-        g.drawString(objName, width/2-5, height/2+10);
+        g.drawLine(offset,height/3+offset,width+offset,height/3+offset);
+        g.drawLine(offset,height/3*2+offset,width+offset,height/3*2+offset);
+        g.drawRect(offset, offset, width, height);
+        g.drawString(objName, width/2-offset, height/2+(2*offset));
 
     }
     public void setName(String name){
@@ -53,8 +51,8 @@ class OvalCanvas extends GraphCanvas{
             port_w.drawPoint(g);
         }
         g.setColor(Color.BLACK);
-        g.drawOval(5, 5, width, height);
-        g.drawString(objName, width/2-5, height/2+10);
+        g.drawOval(offset, offset, width, height);
+        g.drawString(objName, width/2-offset, height/2+(2*offset));
     }
     public void setName(String name){
         objName = name;

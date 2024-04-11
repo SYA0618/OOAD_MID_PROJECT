@@ -8,14 +8,14 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 public class Canvas extends JPanel implements MouseListener,MouseMotionListener {
-    ButtonState state;
-    ArrayList<ConnectionLine> cls;
+    public ButtonState state;
+    public ArrayList<ConnectionLine> cls;
 
 
     Canvas(){
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-        cls = new ArrayList<ConnectionLine>();
+        addMouseListener(this);
+        addMouseMotionListener(this);
+        cls = new ArrayList<>();
     }
 
 
@@ -25,13 +25,11 @@ public class Canvas extends JPanel implements MouseListener,MouseMotionListener 
 
     @Override
     public void mousePressed(MouseEvent e) {
-
         state.getMode().press(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
         state.getMode().release(e);
     }
 

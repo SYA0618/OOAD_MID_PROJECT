@@ -5,25 +5,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public abstract class Menu extends JMenu {
-    GroupObject groupObject;
+public class Menu extends JMenu {
     protected Canvas canvas;
 
 }
 
 class FileMenu extends Menu{
     FileMenu(){
-        this.setText("File");
-        this.add(new JMenuItem("no.1"));
+        setText("File");
+        add(new JMenuItem("no.1"));
     }
-
 
 }
 
 class EditMenu extends Menu{
+    GroupObject groupObject;
     EditMenu(Canvas canvas){
         this.canvas = canvas;
-        this.setText("Edit");
+        setText("Edit");
         JMenuItem group = new JMenuItem("Group");
         group.addActionListener(group_ActionListener);
         group.setAccelerator(KeyStroke.getKeyStroke('G',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
@@ -33,12 +32,12 @@ class EditMenu extends Menu{
         JMenuItem chName = new JMenuItem("Change Name");
         chName.addActionListener(changeObjectName);
         chName.setAccelerator(KeyStroke.getKeyStroke('N',Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        this.add(group);
-        this.add(unGroup);
-        this.add(chName);
+        add(group);
+        add(unGroup);
+        add(chName);
 
     }
-    boolean checkSum(){
+    private boolean checkSum(){
         int count = 0;
         for(Component component : canvas.getComponents()){
             if(((GraphCanvas) component).isSelected){count++;}
@@ -57,11 +56,12 @@ class EditMenu extends Menu{
         @Override
         public void actionPerformed(ActionEvent e) {
             for (Component component:canvas.getComponents()){
-                if(((GraphCanvas)component).isSelected&&((GraphCanvas)component).isGroupPanel){
+                if(((GraphCanvas)component).isSelected&&((GraphCanvas)component).isGroupPanel&&!checkSum()){
                     for (Component component1:((GroupObject)component).groupList){
                         ((GraphCanvas)component1).isGroup=false;
                     }
                     canvas.remove(component);
+                    break;
                 }
             }
             canvas.repaint();
@@ -74,7 +74,7 @@ class EditMenu extends Menu{
             JFrame jFrame = new JFrame();
             String getMessage = JOptionPane.showInputDialog(jFrame, "Enter Object Name");
             if (getMessage==null||checkSum()) {
-                JOptionPane.showMessageDialog(jFrame, "Can't enter null or select greater than two object");
+                //JOptionPane.showMessageDialog(jFrame, "Can't enter null or select greater than two object");
                 return;
             }
             for(Component component: canvas.getComponents()){

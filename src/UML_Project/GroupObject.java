@@ -4,24 +4,24 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GroupObject extends GroupCanvas{
-    Canvas canvas;
-    ArrayList<Component> groupList;
+    private Canvas canvas;
+    public ArrayList<Component> groupList;
 
-    ArrayList<Component> tempList;
+    private ArrayList<Component> tempList;
 
 
     GroupObject(){
-        groupList = new ArrayList<Component>();
-        tempList = new ArrayList<Component>();
+        groupList = new ArrayList<>();
+        tempList = new ArrayList<>();
     }
-    boolean checkSum(){
+    private boolean checkSum(){
         int count = 0;
         for(Component component : canvas.getComponents()){
             if(((GraphCanvas) component).isSelected){count++;}
         }
         return count > 1;
     }
-    int maxY(){
+    private int maxY(){
         int max_Y = 0;
         for(Component component:tempList){
             if(component.getY()+component.getHeight() > max_Y){
@@ -30,8 +30,8 @@ public class GroupObject extends GroupCanvas{
         }
         return max_Y;
     }
-    int minY(){
-        int min_Y = 1000;
+    private int minY(){
+        int min_Y = Integer.MAX_VALUE;
         for(Component component:tempList){
             if(component.getY() < min_Y){
                 min_Y = component.getY();
@@ -40,7 +40,7 @@ public class GroupObject extends GroupCanvas{
         return min_Y;
     }
 
-    int maxX(){
+    private int maxX(){
         int max_X = 0;
         for(Component component:tempList){
             if(component.getX()+component.getWidth() > max_X){
@@ -49,8 +49,8 @@ public class GroupObject extends GroupCanvas{
         }
         return max_X;
     }
-    int minX(){
-        int min_X = 1000;
+    private int minX(){
+        int min_X = Integer.MAX_VALUE;
         for(Component component:tempList){
             if(component.getX() < min_X){
                 min_X = component.getX();
@@ -69,15 +69,16 @@ public class GroupObject extends GroupCanvas{
         super.setLocation(p);
     }
 
-    Point newPoint(Point p, Component component){
+    private Point newPoint(Point p, Component component){
         Point new_Point = new Point();
         new_Point.x = component.getX()+p.x;
         new_Point.y = component.getY()+p.y;
         return new_Point;
     }
-    void groupFunction(Canvas canvas){
+    public void groupFunction(Canvas canvas){
         this.canvas = canvas;
         if(!checkSum()||canvas.getComponentCount() <1) return;
+
         for (Component component : canvas.getComponents()){
             if(((GraphCanvas) component).isSelected) {
                 tempList.add(component);
@@ -88,8 +89,8 @@ public class GroupObject extends GroupCanvas{
                 groupList.add(component);
             }
         }
-        this.setBounds(minX(), minY(), maxX() - minX() , maxY() - minY());
-        this.setBackground(new Color(13, 191, 140, 40));
+        setBounds(minX(), minY(), maxX() - minX() , maxY() - minY());
+        setBackground(new Color(13, 191, 140, 40));
         canvas.add(this,0);
         canvas.repaint();
         System.out.println(groupList);
